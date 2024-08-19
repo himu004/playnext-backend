@@ -2,6 +2,7 @@
 
 import dotenv from 'dotenv';
 import connectDb from "./db/index.js";
+import { app } from './app.js';
 
 dotenv.config(
     {
@@ -10,7 +11,18 @@ dotenv.config(
 )
 
 
-connectDb();
+connectDb()
+.then( () => {
+    app.listen(process.env.PORT || 3000, () => {
+        console.log(`Server is Running at Port : ${process.env.PORT}`);
+    })
+}
+)
+.catch((err) => {
+    console.log('MongoDb Connection Failed !!!, ', err);
+})
+
+
 /*
 const app = express();
 // IIFE = Immediately Invoked Function Expression (Executed)
