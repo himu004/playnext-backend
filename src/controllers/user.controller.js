@@ -33,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All Field Are Required");
   }
 
-  const exitedUser = User.findOne({
+  const exitedUser = await User.findOne({
     $or: [{ username }, { email }],
   });
 
